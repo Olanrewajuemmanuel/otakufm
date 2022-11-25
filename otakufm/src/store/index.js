@@ -22,6 +22,7 @@ const store = createStore({
       currBgDisplay: "",
       audioPlayer: null,
       currSongIndex: 0,
+      currSongInfo: {},
     };
   },
   mutations: {
@@ -51,6 +52,9 @@ const store = createStore({
     },
     makeAudio(state, { audioPlayer }) {
       state.audioPlayer = audioPlayer
+    },
+    changeCurrSong (state, payload) {
+      state.currSongInfo = payload
     }
   },
   getters: {
@@ -72,6 +76,9 @@ const store = createStore({
     getCurrBgDisplay(state) {
       return state.currBgDisplay + ".png";
     },
+    getCurrSongName(state) {
+      return state.currSongInfo.songName
+    }
   },
   actions: {
     async getPlayListData(context, payload) {
@@ -94,8 +101,12 @@ const store = createStore({
     createAudioPlayer(context) {
       const songQueue = context.getters.getSongQueue
       const currPlayer = new Audio()
-     
       const currSongIndex = context.state.currSongIndex
+
+      // commit current song to state for further use.
+      const currSongInfo = songQueue[currSongIndex]
+      store.commit('changeCurrSong', currSongInfo)
+     
       currPlayer.src = songQueue[currSongIndex].streamUrl
       store.commit('makeAudio', { audioPlayer: currPlayer })
     },
