@@ -1,0 +1,4 @@
+export const INCREMENT = 'INCREMENT'
+export const STATION_CHANGE = 'STATION_CHANGE'
+export const PLAYLIST_FETCH = 'OP_PLAYLIST_FETCH'
+export const BG_CHANGE = 'BG_CHANGE'
