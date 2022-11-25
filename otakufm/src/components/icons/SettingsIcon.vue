@@ -14,3 +14,10 @@
     </svg>
   </div>
 </template>
+
+<style scoped>
+svg {
+  width: 45px;
+  height: 45px;
+}
+</style>

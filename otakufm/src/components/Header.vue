@@ -27,5 +27,6 @@ export default {
 .header {
     height: 15vh;
     background-color: transparent;
+    padding-inline: 1.5em;
 }
 </style>

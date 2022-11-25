@@ -1,8 +1,20 @@
 <script setup>
-import SongQueue from './SongQueue.vue';
+import FlexContentAround from "./FlexContentAround.vue";
+import AudioSoundControl from "./AudioSoundControl.vue";
+import SongQueue from "./SongQueue.vue";
 </script>
 <template>
-    <div>
-        BottomSection
-    </div>
+  <div class="bottom">
+    <FlexContentAround>
+      <AudioSoundControl />
+        <SongQueue />
+    </FlexContentAround>
+  </div>
 </template>
+
+<style scoped>
+.bottom {
+  margin: 0;
+  padding-inline: 1.5em;
+}
+</style>

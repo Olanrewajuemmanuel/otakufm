@@ -25,12 +25,18 @@ onMounted(() => store.dispatch("getPlayListData", { station: '' })); // TODO: lo
 button {
   background: none;
   border: none;
+  cursor: pointer;
+}
+button img {
+    width: 75px;
+    height: 75px;
 }
 nav {
   width: 100%;
   height: 100vh;
   position: absolute;
   top: 0;
+  left: 0;
   padding: 0;
   background: rgb(22, 15, 15);
   z-index: 99;

@@ -1,13 +1,12 @@
 <script setup>
-import SongQueueIcon from "./icons/SongQueueIcon.vue";
+import AudioIcon from './icons/AudioIcon.vue';
 </script>
 
 <template>
-  <button>
-    <SongQueueIcon />
-  </button>
+    <button>
+        <AudioIcon />
+    </button>
 </template>
-
 <style scoped>
 button {
   border: none;
@@ -15,4 +14,3 @@ button {
 }
 
 </style>
-
