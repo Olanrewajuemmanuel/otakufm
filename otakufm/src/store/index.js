@@ -55,6 +55,9 @@ const store = createStore({
     },
     changeCurrSong (state, payload) {
       state.currSongInfo = payload
+    },
+    changeCurrSongIndex(state, payload) {
+      state.currSongIndex = payload.id
     }
   },
   getters: {
@@ -116,6 +119,11 @@ const store = createStore({
     playCurrentMusic(context) {
 
       context.state.audioPlayer.play()
+    },
+    changeMusic({ dispatch, state, getters, commit }, { id }) {
+      commit('changeCurrSongIndex', { id, }) // chg curr song index
+      dispatch('createAudioPlayer') // create audio player
+      dispatch('playCurrentMusic') // play
     }
   },
 });

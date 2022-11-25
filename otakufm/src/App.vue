@@ -26,7 +26,7 @@ const getBgDisplay = computed(() => {
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: top center;
+  background-position: center center;
   object-position: top;
   transition: background 500ms ease-in;
 

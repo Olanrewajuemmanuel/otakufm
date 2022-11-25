@@ -48,6 +48,7 @@ button {
 .container p {
   color: white;
   font-weight: bold;
+  font-size: 1.2em;
   position: absolute;
   top: 65%;
   left: 50%;

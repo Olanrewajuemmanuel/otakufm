@@ -54,7 +54,7 @@ li {
 }
 li a {
   text-decoration: underline;
-  color: rgb(148, 159, 255);
+  color: #949fff;
 
 }
 li a:hover {
