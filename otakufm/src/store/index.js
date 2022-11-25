@@ -23,6 +23,7 @@ const store = createStore({
       audioPlayer: null,
       currSongIndex: 0,
       currSongInfo: {},
+      musicIsPlaying: false,
     };
   },
   mutations: {
@@ -58,6 +59,9 @@ const store = createStore({
     },
     changeCurrSongIndex(state, payload) {
       state.currSongIndex = payload.id
+    },
+    changePlayingStatus (state, { status }) {
+      state.musicIsPlaying = status
     }
   },
   getters: {
@@ -81,6 +85,9 @@ const store = createStore({
     },
     getCurrSongName(state) {
       return state.currSongInfo.songName
+    },
+    getPlayingState (state) {
+      return state.musicIsPlaying
     }
   },
   actions: {
@@ -103,7 +110,8 @@ const store = createStore({
     },
     createAudioPlayer(context) {
       const songQueue = context.getters.getSongQueue
-      const currPlayer = new Audio()
+
+      const currPlayer = context.state.audioPlayer || new Audio() // use existing player or create new
       const currSongIndex = context.state.currSongIndex
 
       // commit current song to state for further use.

@@ -7,6 +7,7 @@ const emit = defineEmits(['closeMenu'])
 const currentlyPlayingId = store.state.currSongIndex
 const selectMusic = (id) => {
   store.dispatch('changeMusic', { id, })
+  store.commit('changePlayingStatus', { status: true })
   emit('closeMenu')
 
 }
