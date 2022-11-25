@@ -2,12 +2,12 @@
 import AudioPlayIcon from "./icons/AudioPlayIcon.vue";
 import AudioPauseIcon from "./icons/AudioPauseIcon.vue";
 import { useStore } from "vuex";
-import { computed, onMounted, ref } from "vue";
+import { computed } from "vue";
 const store = useStore();
 const isPlaying = computed(() => store.getters.getPlayingState)
 </script>
 <template>
-  <button @click="isPlaying">
+  <button>
     <div v-if="isPlaying" @click="store.dispatch('pauseCurrentMusic')">
       <AudioPauseIcon />
     </div>

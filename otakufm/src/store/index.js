@@ -3,7 +3,9 @@ import { BL_bg, MOB_bg, NAR_bg, OP_bg } from "../components/api/backgroundList";
 import { fetchPlaylistData } from "../components/api/OtakuFMAPI";
 import { playlistIDArray } from "../components/api/playlistID";
 import {
+  BACKWARD,
   BG_CHANGE,
+  FORWARD,
   INCREMENT,
   PLAYLIST_FETCH,
   STATION_CHANGE,
@@ -24,7 +26,7 @@ const store = createStore({
       currSongIndex: 0,
       currSongInfo: {},
       musicIsPlaying: false,
-      isLoadingResource: false
+      isLoadingResource: false,
     };
   },
   mutations: {
@@ -65,8 +67,8 @@ const store = createStore({
       state.musicIsPlaying = status;
     },
     setIsLoadingState(state, { status }) {
-      state.isLoadingResource = status
-    }
+      state.isLoadingResource = status;
+    },
   },
   getters: {
     getCounter(state) {
@@ -107,12 +109,12 @@ const store = createStore({
       const currPlayListID = playlistIDArray.find(
         (obj) => obj.name == context.state.currStation
       ).id;
-      context.commit('setIsLoadingState', { status: true }) // loading
+      context.commit("setIsLoadingState", { status: true }); // loading
       const playListData = await fetchPlaylistData(currPlayListID);
       context.commit(PLAYLIST_FETCH, { playListData }); // update state
       // create audio player
       context.dispatch("createAudioPlayer");
-      context.commit('setIsLoadingState', { status: false })
+      context.commit("setIsLoadingState", { status: false });
       context.commit(BG_CHANGE); // chg background
     },
     createAudioPlayer(context) {
@@ -138,6 +140,19 @@ const store = createStore({
     },
     changeMusic({ dispatch, state, getters, commit }, { id }) {
       commit("changeCurrSongIndex", { id }); // chg curr song index
+      dispatch("createAudioPlayer"); // create audio player
+      dispatch("playCurrentMusic"); // play
+    },
+    prevOrForwardMusic({ commit, state, dispatch, getters }, { actionType }) {
+      let currId = state.currSongIndex;
+      const songQueueList = getters.getSongQueue.length;
+      if (actionType === FORWARD) {
+        if (currId + 1 <= songQueueList)
+          commit("changeCurrSongIndex", { id: currId + 1 }); // chg curr song index if within queue range
+      } else if (actionType === BACKWARD) {
+        if (currId - 1 > 0)
+          commit("changeCurrSongIndex", { id: currId - 1 });
+      }
       dispatch("createAudioPlayer"); // create audio player
       dispatch("playCurrentMusic"); // play
     },
