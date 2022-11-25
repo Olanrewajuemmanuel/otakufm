@@ -52,17 +52,17 @@ const store = createStore({
       }
     },
     makeAudio(state, { audioPlayer }) {
-      state.audioPlayer = audioPlayer
+      state.audioPlayer = audioPlayer;
     },
-    changeCurrSong (state, payload) {
-      state.currSongInfo = payload
+    changeCurrSong(state, payload) {
+      state.currSongInfo = payload;
     },
     changeCurrSongIndex(state, payload) {
-      state.currSongIndex = payload.id
+      state.currSongIndex = payload.id;
     },
-    changePlayingStatus (state, { status }) {
-      state.musicIsPlaying = status
-    }
+    changePlayingStatus(state, { status }) {
+      state.musicIsPlaying = status;
+    },
   },
   getters: {
     getCounter(state) {
@@ -84,55 +84,57 @@ const store = createStore({
       return state.currBgDisplay + ".png";
     },
     getCurrSongName(state) {
-      return state.currSongInfo.songName
+      return state.currSongInfo.songName;
     },
-    getPlayingState (state) {
-      return state.musicIsPlaying
-    }
+    getPlayingState(state) {
+      return state.musicIsPlaying;
+    },
   },
   actions: {
     async getPlayListData(context, payload) {
       if (context.state.currStation == "")
         context.commit(STATION_CHANGE, {
           name: playlistIDArray[0].name,
-        }); // chg station to first available station (initial render)
+        });
+      // chg station to first available station (initial render)
       else {
         context.commit(STATION_CHANGE, { name: payload.station });
       }
       const currPlayListID = playlistIDArray.find(
         (obj) => obj.name == context.state.currStation
-      ).id
+      ).id;
       const playListData = await fetchPlaylistData(currPlayListID);
       context.commit(PLAYLIST_FETCH, { playListData }); // update state
       // create audio player
-      context.dispatch("createAudioPlayer")
-      context.commit(BG_CHANGE) // chg background
+      context.dispatch("createAudioPlayer");
+      context.commit(BG_CHANGE); // chg background
     },
     createAudioPlayer(context) {
-      const songQueue = context.getters.getSongQueue
+      const songQueue = context.getters.getSongQueue;
 
-      const currPlayer = context.state.audioPlayer || new Audio() // use existing player or create new
-      const currSongIndex = context.state.currSongIndex
+      const currPlayer = context.state.audioPlayer || new Audio(); // use existing player or create new
+      const currSongIndex = context.state.currSongIndex;
 
       // commit current song to state for further use.
-      const currSongInfo = songQueue[currSongIndex]
-      store.commit('changeCurrSong', currSongInfo)
-     
-      currPlayer.src = songQueue[currSongIndex].streamUrl
-      store.commit('makeAudio', { audioPlayer: currPlayer })
+      const currSongInfo = songQueue[currSongIndex];
+      store.commit("changeCurrSong", currSongInfo);
+
+      currPlayer.src = songQueue[currSongIndex].streamUrl;
+      store.commit("makeAudio", { audioPlayer: currPlayer });
     },
     pauseCurrentMusic(context) {
-      context.state.audioPlayer.pause()
+      context.state.audioPlayer.pause();
+      store.commit("changePlayingStatus", { status: false });
     },
     playCurrentMusic(context) {
-
-      context.state.audioPlayer.play()
+      context.state.audioPlayer.play();
+      store.commit("changePlayingStatus", { status: true });
     },
     changeMusic({ dispatch, state, getters, commit }, { id }) {
-      commit('changeCurrSongIndex', { id, }) // chg curr song index
-      dispatch('createAudioPlayer') // create audio player
-      dispatch('playCurrentMusic') // play
-    }
+      commit("changeCurrSongIndex", { id }); // chg curr song index
+      dispatch("createAudioPlayer"); // create audio player
+      dispatch("playCurrentMusic"); // play
+    },
   },
 });
 
