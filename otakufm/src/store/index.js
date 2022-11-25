@@ -24,6 +24,7 @@ const store = createStore({
       currSongIndex: 0,
       currSongInfo: {},
       musicIsPlaying: false,
+      isLoadingResource: false
     };
   },
   mutations: {
@@ -63,6 +64,9 @@ const store = createStore({
     changePlayingStatus(state, { status }) {
       state.musicIsPlaying = status;
     },
+    setIsLoadingState(state, { status }) {
+      state.isLoadingResource = status
+    }
   },
   getters: {
     getCounter(state) {
@@ -103,10 +107,12 @@ const store = createStore({
       const currPlayListID = playlistIDArray.find(
         (obj) => obj.name == context.state.currStation
       ).id;
+      context.commit('setIsLoadingState', { status: true }) // loading
       const playListData = await fetchPlaylistData(currPlayListID);
       context.commit(PLAYLIST_FETCH, { playListData }); // update state
       // create audio player
       context.dispatch("createAudioPlayer");
+      context.commit('setIsLoadingState', { status: false })
       context.commit(BG_CHANGE); // chg background
     },
     createAudioPlayer(context) {
