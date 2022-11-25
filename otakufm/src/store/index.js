@@ -27,6 +27,7 @@ const store = createStore({
       currSongInfo: {},
       musicIsPlaying: false,
       isLoadingResource: false,
+      isMuted: false,
     };
   },
   mutations: {
@@ -68,6 +69,9 @@ const store = createStore({
     },
     setIsLoadingState(state, { status }) {
       state.isLoadingResource = status;
+    },
+    changeMuteStatus(state, { status }) {
+      state.isMuted = status;
     },
   },
   getters: {
@@ -150,11 +154,15 @@ const store = createStore({
         if (currId + 1 <= songQueueList)
           commit("changeCurrSongIndex", { id: currId + 1 }); // chg curr song index if within queue range
       } else if (actionType === BACKWARD) {
-        if (currId - 1 > 0)
-          commit("changeCurrSongIndex", { id: currId - 1 });
+        if (currId - 1 > 0) commit("changeCurrSongIndex", { id: currId - 1 });
       }
       dispatch("createAudioPlayer"); // create audio player
       dispatch("playCurrentMusic"); // play
+    },
+    toggleAudioSound({ state, commit }) {
+      const currPlayer = state.audioPlayer;
+      currPlayer.muted = !state.isMuted;
+      commit("changeMuteStatus", { status: !state.isMuted });
     },
   },
 });

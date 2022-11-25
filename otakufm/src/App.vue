@@ -31,6 +31,7 @@ const getLoadingStatus = computed(() => store.state.isLoadingResource);
   background-size: cover;
   background-position: center center;
   object-position: top;
-  transition: background 500ms ease-in;
+  transition: background 700ms ease-in;
 }
+
 </style>
