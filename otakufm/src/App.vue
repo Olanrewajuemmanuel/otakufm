@@ -5,6 +5,7 @@ import Loading from "./components/Loading.vue";
 import BottomSection from "./components/BottomSection.vue";
 import { useStore } from "vuex";
 import { computed, onMounted } from "vue";
+import { FORWARD } from "./store/mutation";
 
 const store = useStore();
 
@@ -12,6 +13,13 @@ const getBgDisplay = computed(() => {
   return `background-image: url( './img/${store.getters.getCurrBgDisplay}')`;
 });
 const getLoadingStatus = computed(() => store.state.isLoadingResource);
+const currentAudioPlayer = computed(() => store.getters.getCurrAudioPlayer);
+
+onMounted(() => {
+  currentAudioPlayer.value.addEventListener('ended', () => {
+  store.dispatch('prevOrForwardMusic', { actionType: FORWARD })
+})
+})
 </script>
 <template>
   <div class="appContainer" :style="getBgDisplay">

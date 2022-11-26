@@ -15,6 +15,7 @@ function getRandomIndexFromList(list) {
   return Math.floor(Math.random() * list.length);
 }
 
+
 const store = createStore({
   state() {
     return {
@@ -99,6 +100,9 @@ const store = createStore({
     getPlayingState(state) {
       return state.musicIsPlaying;
     },
+    getCurrAudioPlayer(state) {
+      return state.audioPlayer
+    }
   },
   actions: {
     async getPlayListData(context, payload) {
