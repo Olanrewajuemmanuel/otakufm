@@ -5,7 +5,11 @@ import RadioStation from "./RadioStation.vue";
 let stationMenu = ref(false);
 const store = useStore();
 
-onMounted(() => store.dispatch("getPlayListData", { station: '' })); // TODO: load from localStorage
+onMounted(() =>
+  store.dispatch("getPlayListData", {
+    station: localStorage.getItem("playlist") || '',
+  })
+); // TODO: load from localStorage
 </script>
 <template>
   <div class="placholder">
@@ -28,8 +32,8 @@ button {
   cursor: pointer;
 }
 button img {
-    width: 75px;
-    height: 75px;
+  width: 75px;
+  height: 75px;
 }
 nav {
   width: 100%;

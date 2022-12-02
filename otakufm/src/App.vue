@@ -24,7 +24,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="appContainer" :style="getBgDisplay">
-    <div>
+    <div class="inner">
       <Loading :loading="getLoadingStatus" />
       <Header />
       <Body />
@@ -44,8 +44,13 @@ onMounted(() => {
   object-position: top;
   transition: background 700ms ease-in;
 }
-.appContainer > div {
+.appContainer > .inner {
   background: rgba(70, 0, 0, 0.5);
   height: 100vh;
+}
+@media (max-width: 576px) {
+  .appContainer {
+    background-position: center center;
+  }
 }
 </style>

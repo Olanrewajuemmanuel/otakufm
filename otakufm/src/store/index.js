@@ -15,7 +15,6 @@ function getRandomIndexFromList(list) {
   return Math.floor(Math.random() * list.length);
 }
 
-
 const store = createStore({
   state() {
     return {
@@ -45,15 +44,20 @@ const store = createStore({
     [PLAYLIST_FETCH](state, payload) {
       state.currPlaylist = payload.playListData;
     },
-    [BG_CHANGE](state) {
-      if (state.currStation == "OP") {
-        state.currBgDisplay = OP_bg[getRandomIndexFromList(OP_bg)];
-      } else if (state.currStation == "BL") {
-        state.currBgDisplay = BL_bg[getRandomIndexFromList(BL_bg)];
-      } else if (state.currStation == "NAR") {
-        state.currBgDisplay = NAR_bg[getRandomIndexFromList(NAR_bg)];
-      } else if (state.currStation == "MOB") {
-        state.currBgDisplay = MOB_bg[getRandomIndexFromList(MOB_bg)];
+    [BG_CHANGE](state, payload) {
+      if (payload) {
+        state.currBgDisplay = payload.image;
+      } else {
+        // no image given
+        if (state.currStation == "OP") {
+          state.currBgDisplay = OP_bg[getRandomIndexFromList(OP_bg)];
+        } else if (state.currStation == "BL") {
+          state.currBgDisplay = BL_bg[getRandomIndexFromList(BL_bg)];
+        } else if (state.currStation == "NAR") {
+          state.currBgDisplay = NAR_bg[getRandomIndexFromList(NAR_bg)];
+        } else if (state.currStation == "MOB") {
+          state.currBgDisplay = MOB_bg[getRandomIndexFromList(MOB_bg)];
+        }
       }
     },
     makeAudio(state, { audioPlayer }) {
@@ -101,17 +105,30 @@ const store = createStore({
       return state.musicIsPlaying;
     },
     getCurrAudioPlayer(state) {
-      return state.audioPlayer
-    }
+      return state.audioPlayer;
+    },
+    getCurrBgList(state) {
+      let curr_list = [];
+      if (state.currStation == "OP") {
+        curr_list = OP_bg;
+      } else if (state.currStation == "BL") {
+        curr_list = BL_bg;
+      } else if (state.currStation == "NAR") {
+        curr_list = NAR_bg;
+      } else if (state.currStation == "MOB") {
+        curr_list = MOB_bg;
+      }
+      return curr_list;
+    },
   },
   actions: {
     async getPlayListData(context, payload) {
-      if (context.state.currStation == "")
+      if (payload.station == "") {
+        // user first visit
         context.commit(STATION_CHANGE, {
           name: playlistIDArray[0].name,
         });
-      // chg station to first available station (initial render)
-      else {
+      } else {
         context.commit(STATION_CHANGE, { name: payload.station });
       }
       const currPlayListID = playlistIDArray.find(
@@ -120,10 +137,15 @@ const store = createStore({
       context.commit("setIsLoadingState", { status: true }); // loading
       const playListData = await fetchPlaylistData(currPlayListID);
       context.commit(PLAYLIST_FETCH, { playListData }); // update state
+      context.state.currSongIndex = 0; // revert to start of queue. bad method!
       // create audio player
       context.dispatch("createAudioPlayer");
       context.commit("setIsLoadingState", { status: false });
-      context.commit(BG_CHANGE); // chg background
+      context.commit(BG_CHANGE);
+      context.dispatch("storeSession", {
+        image: context.state.currBgDisplay,
+        playlistID: context.state.currStation,
+      });
     },
     createAudioPlayer(context) {
       const songQueue = context.getters.getSongQueue;
@@ -167,6 +189,10 @@ const store = createStore({
       const currPlayer = state.audioPlayer;
       currPlayer.muted = !state.isMuted;
       commit("changeMuteStatus", { status: !state.isMuted });
+    },
+    storeSession({ state, commit }, { image, playlistID }) {
+      window.localStorage.setItem("image", image);
+      window.localStorage.setItem("playlist", playlistID);
     },
   },
 });

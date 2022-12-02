@@ -7,7 +7,6 @@ export const OP_bg = [
 export const BL_bg = [
     'wallhaven-2kvjqx_BL',
     'wallhaven-j8pr65_BL',
-    'wallhaven-j8pr65_BL',
     'wallhaven-w8gw7r_BL',
 ]
 

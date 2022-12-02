@@ -31,6 +31,9 @@ div {
     gap: 3rem;
     height: 100vh;
     width: 100%;
+    position: absolute;
+    background: rgb(17, 17, 17);
+    z-index: 99;
 }
 h2 {
     font-size: 3rem;
