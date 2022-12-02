@@ -16,18 +16,21 @@ const getLoadingStatus = computed(() => store.state.isLoadingResource);
 const currentAudioPlayer = computed(() => store.getters.getCurrAudioPlayer);
 
 onMounted(() => {
-  currentAudioPlayer.value.addEventListener('ended', () => {
-  store.dispatch('prevOrForwardMusic', { actionType: FORWARD })
-})
-})
+  currentAudioPlayer.value &&
+    currentAudioPlayer.value.addEventListener("ended", () => {
+      store.dispatch("prevOrForwardMusic", { actionType: FORWARD });
+    });
+});
 </script>
 <template>
   <div class="appContainer" :style="getBgDisplay">
+    <div>
       <Loading :loading="getLoadingStatus" />
       <Header />
       <Body />
       <BottomSection />
     </div>
+  </div>
 </template>
 
 <style>
@@ -37,9 +40,12 @@ onMounted(() => {
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center center;
+  background-position: left center;
   object-position: top;
   transition: background 700ms ease-in;
 }
-
+.appContainer > div {
+  background: rgba(70, 0, 0, 0.5);
+  height: 100vh;
+}
 </style>
