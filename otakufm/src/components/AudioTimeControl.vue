@@ -70,4 +70,9 @@ function drop(event) {
 .track:hover {
   background: var(--accent);
 }
+@media screen and (min-width: 576px) {
+  .track {
+    width: 300px
+  }
+}
 </style>
