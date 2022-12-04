@@ -34,7 +34,7 @@ const isMenuOpen = ref(false);
 h1 {
   font-size: 2rem;
   font-weight: normal;
-  color: white;
+  color: var(--primary);
   position: relative;
 }
 .icon {

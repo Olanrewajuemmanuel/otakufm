@@ -4,7 +4,7 @@ import Body from "./components/Body.vue";
 import Loading from "./components/Loading.vue";
 import BottomSection from "./components/BottomSection.vue";
 import { useStore } from "vuex";
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import { FORWARD } from "./store/mutation";
 
 const store = useStore();
@@ -15,12 +15,10 @@ const getBgDisplay = computed(() => {
 const getLoadingStatus = computed(() => store.state.isLoadingResource);
 const currentAudioPlayer = computed(() => store.getters.getCurrAudioPlayer);
 
-onMounted(() => {
-  currentAudioPlayer.value &&
-    currentAudioPlayer.value.addEventListener("ended", () => {
-      store.dispatch("prevOrForwardMusic", { actionType: FORWARD });
-    });
-});
+currentAudioPlayer.value &&
+  currentAudioPlayer.value.addEventListener("ended", () => {
+    store.dispatch("prevOrForwardMusic", { actionType: FORWARD });
+  });
 </script>
 <template>
   <div class="appContainer" :style="getBgDisplay">
@@ -34,6 +32,14 @@ onMounted(() => {
 </template>
 
 <style>
+:root {
+  --primary: #fff;
+  --accent: rgba(70, 0, 0, 0.5);
+  --link: rgba(152, 152, 255, 0.836);
+  --background: rgb(22, 15, 15);
+  --background-menu: rgb(22, 15, 15);
+  --letter-spacing: 2px;
+}
 .appContainer {
   font-family: "Roboto", sans-serif;
   min-height: 100vh;

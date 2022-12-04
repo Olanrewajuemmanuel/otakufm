@@ -29,7 +29,10 @@ function changeBg(index) {
     <div class="bg-container">
       <!-- bg change -->
       <h2>Change background</h2>
-      <div :class="['box', { activeBg: store.state.currBgDisplay == store.getters.getCurrBgList[index] }]" v-for="(path, index) in bgPaths" :style="path" @click="changeBg(index)"></div>
+      <div class="boxes">
+              <div :class="['box', { activeBg: store.state.currBgDisplay == store.getters.getCurrBgList[index] }]" v-for="(path, index) in bgPaths" :style="path" @click="changeBg(index)"></div>
+
+      </div>
     </div>
     <div>
       <!-- last station & bg -->
@@ -54,7 +57,7 @@ nav {
   top: 0;
   left: 0;
   padding: 0;
-  background: rgb(22, 15, 15);
+  background: var(--background);
   z-index: 99;
   color: white;
 
@@ -74,10 +77,16 @@ button {
   background-size: 100%;
   background-repeat: no-repeat;
   padding: 0.2em;
-  margin: 0 20px;
+  margin: 10px 20px;
   outline: 2px solid white;
   cursor: pointer;
-  float: right;
+  flex: 1 0 calc(100%/3);
+  flex-grow: 0;
+}
+.boxes {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 .activeBg {
   outline: 2px solid rgb(86, 86, 88);

@@ -21,7 +21,7 @@
         Wallpapers from <a href="#" target="_blank"> Wallhaven.</a> Icons from
         <a href="https://icons8.com/">Icons8</a> 
         <p>Hit me up for feature
-        suggestions and stuff <a href="mailto:olalerulanre@gmail.com">here.</a></p>
+        suggestions, collaborations and other stuff <a href="mailto:olalerulanre@gmail.com">here.</a></p>
       </p>
     </section>
   </div>
@@ -41,10 +41,10 @@
 }
 h3 {
   color: rgba(152, 152, 255, 0.836);
+  margin: 1rem 0;
 }
 section {
   width: 80%;
-  overflow-y: auto;
 }
 section > p {
   margin-block: 1em;
@@ -52,5 +52,8 @@ section > p {
 button {
   padding: 1em;
   cursor: pointer;
+}
+a {
+  color: var(--link);
 }
 </style>

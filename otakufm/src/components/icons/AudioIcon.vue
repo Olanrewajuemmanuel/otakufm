@@ -1,8 +1,8 @@
 <template>
   <div>
     <svg
-      width="50"
-      height="37"
+      width="30"
+      height="30"
       viewBox="0 0 50 37"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -22,10 +22,3 @@
     </svg>
   </div>
 </template>
-
-<style scoped>
-svg {
-  width: 45px;
-  height: 45px;
-}
-</style>
