@@ -22,7 +22,7 @@ const store = createStore({
       currStation: "", // OP, BL, NAR, MOB
       currPlaylist: [],
       currBgDisplay: "",
-      audioPlayer: null,
+      audioPlayer: new Audio(),
       currSongIndex: 0,
       currSongInfo: {},
       musicIsPlaying: false,
