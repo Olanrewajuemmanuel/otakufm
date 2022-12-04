@@ -9,7 +9,7 @@ onMounted(() =>
   store.dispatch("getPlayListData", {
     station: localStorage.getItem("playlist") || '',
   })
-); // TODO: load from localStorage
+);
 </script>
 <template>
   <div class="placholder">
