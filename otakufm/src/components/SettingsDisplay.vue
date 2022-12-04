@@ -21,7 +21,6 @@ function changeBg(index) {
     emit('close-menu')
 
 }
-console.log(bgPaths.value[1]);
 </script>
 
 <template>
