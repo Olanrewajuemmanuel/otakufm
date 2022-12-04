@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
-const currAudioPlayer = store.getters.getCurrAudioPlayer;
+const currAudioPlayer = store.getters.getCurrAudioPlayer
 const trackCtrl = ref(null);
 currAudioPlayer &&
   (currAudioPlayer.ontimeupdate = () => {
