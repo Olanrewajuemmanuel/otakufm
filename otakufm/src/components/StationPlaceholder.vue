@@ -32,8 +32,8 @@ button {
   cursor: pointer;
 }
 button img {
-  width: 75px;
-  height: 75px;
+  width: 60px;
+  height: 60px;
 }
 nav {
   width: 100%;
@@ -42,7 +42,7 @@ nav {
   top: 0;
   left: 0;
   padding: 0;
-  background: rgb(22, 15, 15);
+  background: var(--background-menu);
   z-index: 99;
 }
 </style>

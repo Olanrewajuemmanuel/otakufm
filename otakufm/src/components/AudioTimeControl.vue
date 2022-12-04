@@ -68,6 +68,6 @@ function drop(event) {
   scale: 1.1;
 }
 .track:hover {
-  background: rgb(255, 97, 163);
+  background: var(--accent);
 }
 </style>

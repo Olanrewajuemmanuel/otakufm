@@ -32,6 +32,14 @@ currentAudioPlayer.value &&
 </template>
 
 <style>
+:root {
+  --primary: #fff;
+  --accent: rgba(70, 0, 0, 0.5);
+  --link: rgba(152, 152, 255, 0.836);
+  --background: rgb(22, 15, 15);
+  --background-menu: rgb(22, 15, 15);
+  --letter-spacing: 2px;
+}
 .appContainer {
   font-family: "Roboto", sans-serif;
   min-height: 100vh;
