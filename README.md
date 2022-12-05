@@ -8,10 +8,19 @@ OtakuFM is a web 'radio' for listening to Japanese anime music.
 
 ## Installation
 Use [node](https://nodejs.org/en/download/) v16 and above preferably.
+Install Vite and vue 3 following this [tutorial](https://blog.ninja-squad.com/2022/02/23/getting-started-with-vite-and-vue/)
 
 ```bash
-cd otakufm && yarn dev
+cd otakufm && npm install
 ```
+Then run
+
+```bash
+npm run dev
+```
+
+VS code and Volar extension suggested for maximum developer experience.
+
 ## Features
 <img src="./otakufm/public/img/FrontPage.png" alt="Otakufm frontpage" />
 <ol>
